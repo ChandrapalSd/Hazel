@@ -10,6 +10,10 @@ workspace "Hazel"
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+
+
+startproject "Sandbox"
+
 project "Hazel"
 	location "Hazel"
 	kind "SharedLib"
