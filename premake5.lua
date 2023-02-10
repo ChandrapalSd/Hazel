@@ -8,19 +8,23 @@ workspace "Hazel"
 		"Dist"
 	}
 
-outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
-
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 startproject "Sandbox"
+
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+
+include "Hazel/vendor/GLFW"
 
 project "Hazel"
 	location "Hazel"
 	kind "SharedLib"
 	language "C++"
 
-	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "hzpch.h"
 	pchsource "Hazel/src/hzpch.cpp"
@@ -34,7 +38,14 @@ project "Hazel"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links 
+	{ 
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -50,29 +61,28 @@ project "Hazel"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 		}
 
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		symbols "On"
-	
+
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		optimize "On"
-	
+
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		optimize "On"
 
-	
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 
-	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -101,17 +111,14 @@ project "Sandbox"
 			"HZ_PLATFORM_WINDOWS"
 		}
 
-		
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		symbols "On"
-	
+
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		optimize "On"
-	
+
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		optimize "On"
-
-
