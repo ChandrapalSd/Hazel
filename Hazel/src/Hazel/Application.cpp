@@ -43,15 +43,11 @@ namespace Hazel {
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
-		// TODO: should onAttach be called in LayerStack ?
-		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
-		// TODO: shouldn't this be in LayerStack ?
-		overlay->OnAttach();
 	}
 
 	void Application::Run()
