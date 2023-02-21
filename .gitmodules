@@ -10,3 +10,6 @@
 [submodule "Hazel/vendor/glm"]
 	path = Hazel/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "Hazel/vendor/stb/include"]
+	path = Hazel/vendor/stb/include
+	url = https://github.com/nothings/stb.git
