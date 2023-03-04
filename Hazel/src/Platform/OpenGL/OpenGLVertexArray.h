@@ -13,17 +13,17 @@ namespace Hazel {
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-		virtual void AddVertexBuffer(const Hazel::Ref<VertexBuffer>& vertexBuffer);
-		virtual void SetIndexBuffer(const Hazel::Ref<IndexBuffer>& indexBuffer);
+		virtual void AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer);
+		virtual void SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer);
 
-		virtual const std::vector<Hazel::Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
-		virtual const Hazel::Ref<IndexBuffer>& GetIndexBuffer() const {return m_IndexBuffer;}
+		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
+		virtual const Ref<IndexBuffer>& GetIndexBuffer() const {return m_IndexBuffer;}
 
 	private:
 		uint32_t m_RendererID;
 		uint32_t m_VertexLEIndex = 0; // Vertex layout element index
-		std::vector<Hazel::Ref<VertexBuffer>> m_VertexBuffers;
-		Hazel::Ref<IndexBuffer> m_IndexBuffer;
+		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
+		Ref<IndexBuffer> m_IndexBuffer;
 	};
 
 }
