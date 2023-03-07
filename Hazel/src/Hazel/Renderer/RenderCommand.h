@@ -27,9 +27,9 @@ namespace Hazel {
 			s_RendererAPI->Clear(); 
 		}
 
-		static void DrawIndexed(const Hazel::Ref<VertexArray>& vertexArray) 
+		static void DrawIndexed(const Hazel::Ref<VertexArray>& vertexArray, uint32_t count = 0) 
 		{ 
-			return s_RendererAPI->DrawIndexed(vertexArray); 
+			return s_RendererAPI->DrawIndexed(vertexArray, count); 
 		}
 
 	private:
