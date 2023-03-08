@@ -59,6 +59,11 @@ namespace Hazel {
 		m_LayerStack.PushOverlay(overlay);
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::Run()
 	{
 		while (m_Running)
