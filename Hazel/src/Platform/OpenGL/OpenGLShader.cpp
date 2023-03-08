@@ -132,8 +132,8 @@ namespace Hazel {
 				// We don't need the shader anymore.
 				glDeleteShader(shader);
 
+				HZ_CORE_ERROR("{0} shader compilation failure!", StringFromShaderType(type));
 				HZ_CORE_ERROR("{0}", infoLog.data());
-				HZ_CORE_ASSERT(false, "{0} shader compilation failure!", StringFromShaderType(type));
 				break;
 			}
 
