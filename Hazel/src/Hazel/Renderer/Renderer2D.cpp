@@ -210,7 +210,9 @@ namespace Hazel {
 
 		if (textureIndex == 0.0f)
 		{
-			HZ_CORE_ASSERT(s_Data.TextureSlotIndex <= 32, "Texture slot out of range");
+			if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
+				FlushAndReset();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
@@ -296,7 +298,9 @@ namespace Hazel {
 
 		if (textureIndex == 0.0f)
 		{
-			HZ_CORE_ASSERT(s_Data.TextureSlotIndex <= 32, "Texture slot out of range");
+			if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
+				FlushAndReset();
+
 			textureIndex = (float)s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
 			s_Data.TextureSlotIndex++;
