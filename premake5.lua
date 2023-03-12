@@ -1,18 +1,18 @@
 workspace "Hazel"
-	architecture "x86_64"
-	startproject "Sandbox"
+    architecture "x86_64"
+    startproject "Hazelnut"
 
-	configurations
-	{
-		"Debug",
-		"Release",
-		"Dist"
-	}
+    configurations
+    {
+        "Debug",
+        "Release",
+        "Dist"
+    }
 
-	flags
-	{
-		"MultiProcessorCompile"
-	}
+    flags
+    {
+        "MultiProcessorCompile"
+    }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -26,127 +26,175 @@ IncludeDir["glm"] = "Hazel/vendor/glm"
 IncludeDir["stb"] = "Hazel/vendor/stb/include"
 
 group "Dependencies"
-	include "Hazel/vendor/GLFW"
-	include "Hazel/vendor/Glad"
-	include "Hazel/vendor/imgui"
+    include "Hazel/vendor/GLFW"
+    include "Hazel/vendor/Glad"
+    include "Hazel/vendor/imgui"
 
 group ""
 
 project "Hazel"
-	location "Hazel"
-	kind "StaticLib"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "on"
+    location "Hazel"
+    kind "StaticLib"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "hzpch.h"
-	pchsource "Hazel/src/hzpch.cpp"
+    pchheader "hzpch.h"
+    pchsource "Hazel/src/hzpch.cpp"
 
-	files
-	{
-		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/vendor/stb/**.h",
-		"%{prj.name}/vendor/stb/stb_image.cpp",
-		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"
-	}
-	
-	defines
-	{
-		"_CRT_SECURE_NO_WARNINGS",
-		"GLFW_INCLUDE_NONE"
-	}
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb/**.h",
+        "%{prj.name}/vendor/stb/stb_image.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
+    }
+    
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS",
+        "GLFW_INCLUDE_NONE"
+    }
 
-	includedirs
-	{
-		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.Imgui}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb}"
-	}
+    includedirs
+    {
+        "%{prj.name}/src",
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.Imgui}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb}"
+    }
 
-	links 
-	{ 
-		"GLFW",
-		"Glad",
-		"Imgui",
-		"opengl32.lib"
-	}
+    links 
+    { 
+        "GLFW",
+        "Glad",
+        "Imgui",
+        "opengl32.lib"
+    }
 
-	filter "system:windows"
-		systemversion "latest"
+    filter "system:windows"
+        systemversion "latest"
 
-		defines
-		{
-		}
+        defines
+        {
+        }
 
 
-	filter "configurations:Debug"
-		defines "HZ_DEBUG"
-		runtime "Debug"
-		symbols "on"
+    filter "configurations:Debug"
+        defines "HZ_DEBUG"
+        runtime "Debug"
+        symbols "on"
 
-	filter "configurations:Release"
-		defines "HZ_RELEASE"
-		runtime "Release"
-		optimize "on"
+    filter "configurations:Release"
+        defines "HZ_RELEASE"
+        runtime "Release"
+        optimize "on"
 
-	filter "configurations:Dist"
-		defines "HZ_DIST"
-		runtime "Release"
-		optimize "on"
+    filter "configurations:Dist"
+        defines "HZ_DIST"
+        runtime "Release"
+        optimize "on"
 
 project "Sandbox"
-	location "Sandbox"
-	kind "ConsoleApp"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "on"
+    location "Sandbox"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
-		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
-	}
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
 
-	includedirs
-	{
-		"Hazel/vendor/spdlog/include",
-		"Hazel/src",
-		"Hazel/vendor",
-		"%{IncludeDir.glm}"
-	}
+    includedirs
+    {
+        "Hazel/vendor/spdlog/include",
+        "Hazel/src",
+        "Hazel/vendor",
+        "%{IncludeDir.glm}"
+    }
 
-	links
-	{
-		"Hazel"
-	}
+    links
+    {
+        "Hazel"
+    }
 
-	filter "system:windows"
-		systemversion "latest"
+    filter "system:windows"
+        systemversion "latest"
 
 
-	filter "configurations:Debug"
-		defines "HZ_DEBUG"
-		runtime "Debug"
-		symbols "on"
+    filter "configurations:Debug"
+        defines "HZ_DEBUG"
+        runtime "Debug"
+        symbols "on"
 
-	filter "configurations:Release"
-		defines "HZ_RELEASE"
-		runtime "Release"
-		optimize "on"
+    filter "configurations:Release"
+        defines "HZ_RELEASE"
+        runtime "Release"
+        optimize "on"
 
-	filter "configurations:Dist"
-		defines "HZ_DIST"
-		runtime "Release"
-		optimize "on"
+    filter "configurations:Dist"
+        defines "HZ_DIST"
+        runtime "Release"
+        optimize "on"
+
+
+project "Hazelnut"
+    location "Hazelnut"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "Hazel/vendor/spdlog/include",
+        "Hazel/src",
+        "Hazel/vendor",
+        "%{IncludeDir.glm}"
+    }
+
+    links
+    {
+        "Hazel"
+    }
+
+    filter "system:windows"
+        systemversion "latest"
+        
+    filter "configurations:Debug"
+        defines "HZ_DEBUG"
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        defines "HZ_RELEASE"
+        runtime "Release"
+        optimize "on"
+
+    filter "configurations:Dist"
+        defines "HZ_DIST"
+        runtime "Release"
+        optimize "on"
