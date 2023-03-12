@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 // TODO: REMOVE!
-typedef unsigned int GLenum;
+typedef uint32_t GLenum;
 
 namespace Hazel {
 
